@@ -20,49 +20,26 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminControlador {
 
-//    @Autowired
-//    private ProductoRepositorio productoRepositorio;
+    @Autowired
+    private ProductoRepositorio productoRepositorio;
 
-//    @GetMapping("")
-//    public ModelAndView verPaginaDeInicio(@PageableDefault(sort = "nombre", size = 5) Pageable pageable) {
-//        Page<Producto> productos = productoRepositorio.findAll(pageable);
-//        return new ModelAndView("index").addObject("productos", productos);
-//    }
-//
-//    @GetMapping("/productos/nuevo")
-//    public ModelAndView mostrarFormularioDeNuevoProducto() {
-//        List<Producto> productos = productoRepositorio.findAll(Sort.by("nombre"));
-//        return new ModelAndView("admin/nuevo-producto")
-//                .addObject("producto", new Producto());
-//    }
-
-    /**@PostMapping("/productos/nuevo")
-    public ModelAndView registrarProducto(@Validated Imagen imagen, Producto producto,BindingResult bindingResult) {
-        if(bindingResult.hasErrors() || imagen.getPortada().isEmpty()) {
-            if(imagen.getPortada().isEmpty()) {
-                bindingResult.rejectValue("portada","MultipartNotEmpty");
-            }
-
-            List<Producto> productos = productoRepositorio.findAll(Sort.by("nombre"));
-            return new ModelAndView("admin/nuevo-producto")
-                    .addObject("producto",producto);
-        }
-
-        String rutaPortada = servicio.almacenarArchivo(imagen.getPortada());
-        imagen.setRutaPortada(rutaPortada);
-
-        productoRepositorio.save(producto);
-        return new ModelAndView("redirect:/admin");
+    @GetMapping("")
+   public ModelAndView verPaginaDeInicio(@PageableDefault(sort = "nombre", size = 5) Pageable pageable) {
+        Page<Producto> productos = productoRepositorio.findAll(pageable);
+       return new ModelAndView("index").addObject("productos", productos);
     }
 
-    /**@GetMapping("/productos/{id}/editar")
-    public ModelAndView mostrarFormilarioDeEditarProducto(@PathVariable Integer id) {
-        Producto producto = productoRepositorio.getOne(id);
-        List<Producto> productos = productoRepositorio.findAll(Sort.by("nombre"));
+    @GetMapping("/productos/nuevo")
+    public ModelAndView mostrarFormularioDeNuevoProducto() {
+        List<Producto> tipos = productoRepositorio.findAll(Sort.by("nombre"));
+        return new ModelAndView("nuevo-producto")
+                .addObject("producto", new Producto())
+                .addObject("tipos",tipos);
+    }
 
-        return new ModelAndView("admin/editar-producto")
-                .addObject("producto",producto);
-    }**/
+
+
+
 
 
 
