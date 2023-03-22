@@ -4,10 +4,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="utf-8">
-    <title>Lovit Boutique</title>
-    <link rel="stylesheet" type="text/css" href="static/css/master.css" th:href="@{/css/master.css}">
+    <title>Agregar</title>
+    <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
 
-    <link rel="stylesheet" href="estilos.css">
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -19,10 +18,12 @@
     <link
             href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
             rel="stylesheet" />
+
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-custom">
+<nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Lovit Boutique</a>
         <button class="navbar-toggler" type="button"
@@ -36,16 +37,10 @@
                 <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
                 <li class="nav-item"><a class="nav-link" href="/productos">Productos</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin">Administración</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contacto">Contacto</a></li>
             </ul>
         </div>
     </div>
 </nav>
-
-
-
-<div layout:fragment="content" class="container my-5">
-</div>
 
 <script
         src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
@@ -60,11 +55,7 @@
 <script
         src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<div layout:fragment="scripts" th:remove="tag">
-
-</div>
-
-
+<h2>Registro de producto</h2>
 
 <div layout:fragment="form">
     <br>
@@ -86,21 +77,21 @@
                  th:errors="*{descripcion}"></div>
         </div>
 
-        <div class="mb-3">
-            <label for="imagen_portada" class="form-label">Portada : </label> <input
-                type="file" name="imagen_portada" id="imagen_portada" class="form-control"
-                th:field="*{imagen_portada}">
-            <div class="invalid-feedback"
-                 th:if="${#fields.hasErrors('imagen_portada')}" th:errors="*{imagen_portada}"></div>
-        </div>
+<!--        <div class="mb-3">-->
+<!--            <label for="imagen_portada" class="form-label">Portada : </label> <input-->
+<!--                type="file" name="imagen_portada" id="imagen_portada" class="form-control"-->
+<!--                th:field="*{imagen_portada}">-->
+<!--            <div class="invalid-feedback"-->
+<!--                 th:if="${#fields.hasErrors('imagen_portada')}" th:errors="*{imagen_portada}"></div>-->
+<!--        </div>-->
 
-        <div class="mb-3">
-            <label for="imagenes_adicionales" class="form-label">Imagen adicional : </label> <input
-                type="file" name="imagenes_adicionales" id="imagenes_adicionales" class="form-control"
-                th:field="*{imagenes_adicionales}">
-            <div class="invalid-feedback"
-                 th:if="${#fields.hasErrors('imagenes_adicionales')}" th:errors="*{imagenes_adicionales}"></div>
-        </div>
+<!--        <div class="mb-3">-->
+<!--            <label for="imagenes_adicionales" class="form-label">Imagen adicional : </label> <input-->
+<!--                type="file" name="imagenes_adicionales" id="imagenes_adicionales" class="form-control"-->
+<!--                th:field="*{imagenes_adicionales}">-->
+<!--            <div class="invalid-feedback"-->
+<!--                 th:if="${#fields.hasErrors('imagenes_adicionales')}" th:errors="*{imagenes_adicionales}"></div>-->
+<!--        </div>-->
 
         <div class="mb-3">
             <label for="precio" class="form-label">Precio : </label> <input
@@ -153,12 +144,6 @@
         <div class="text-end">
             <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
-
-
-
-
-
-
 
 
     </form>
