@@ -74,20 +74,19 @@
     <tbody>
     <tr th:each="producto : ${productos}" th:object="${producto}">
       <td style="width:150px;">
-        <a th:href="@{/assets/{filename}(filename=*{rutaPortada})}" data-fancybox>
-          <img th:src="@{/assets/{filename}(filename=*{rutaPortada})}" alt="" class="img-thumbnail w-100">
+        <a th:href="@{/assets/{filename}(filename=*{imagenRuta})}" data-fancybox>
+          <img th:src="@{/assets/{filename}(filename=*{imagenRuta})}" alt="" class="img-thumbnail w-100">
         </a>
       </td>
       <td>
-        <div th:text="*{titulo}" class="fs-5 fw-bold"></div>
+        <div th:text="*{nombre}" class="fs-5 fw-bold"></div>
         <p th:text="*{descripcion}"></p>
         <div>
-          <span class="badge rounded-pill bg-light text-dark me-1"
+          <span class="badge rounded-pill bg-light text-dark me-1">
           <p th:text="*{precio}"></p>
           </span>
         </div>
       </td>
-      <td th:text="*{#temporals.format(fechaRegistro,'dd/MM/yyyy')}"></td>
       <td class="text-end">
         <a th:href="@{/admin/productos/{id}/editar(id=*{id})}">Editar</a>
         <a href="javascript:void(0)" class="text-danger ms-3" th:onclick="'eliminarProducto(' + *{id} +')'">Eliminar</a>

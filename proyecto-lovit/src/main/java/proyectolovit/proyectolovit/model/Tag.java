@@ -1,28 +1,37 @@
 package proyectolovit.proyectolovit.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+@Entity
 public class Tag {
 
-    private long id;
+    @Id
+    @Column(name = "id_tag")
+    private int id;
 
     @NotBlank
     private String nombre;
+
+    public Tag() {
+    }
 
     public Tag(@NotBlank String nombre) {
         this.nombre = nombre;
     }
 
-    public Tag(long id, @NotBlank String nombre) {
+    public Tag(int id, @NotBlank String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
