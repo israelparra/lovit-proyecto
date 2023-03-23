@@ -1,29 +1,26 @@
 package proyectolovit.proyectolovit.model;
 
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 public class Tag {
 
-    private long id;
+    @Id
+    private int id_tag;
 
-    @NotBlank
     private String nombre;
 
-    public Tag(@NotBlank String nombre) {
+    public Tag(int id_tag, String nombre) {
+        this.id_tag = id_tag;
         this.nombre = nombre;
     }
 
-    public Tag(long id, @NotBlank String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    public int getId_tag() {
+        return id_tag;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setId_tag(int id_tag) {
+        this.id_tag = id_tag;
     }
 
     public String getNombre() {

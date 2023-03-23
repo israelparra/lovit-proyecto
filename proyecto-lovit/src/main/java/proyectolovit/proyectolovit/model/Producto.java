@@ -14,8 +14,6 @@ import java.util.ArrayList;
 public class Producto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_producto")
     private int id;
 
     private String nombre;
