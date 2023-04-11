@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/proyecto-lovit/proyecto-lovit.iml" filepath="$PROJECT_DIR$/proyecto-lovit/proyecto-lovit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lovit-proyecto-master.iml" filepath="$PROJECT_DIR$/.idea/lovit-proyecto-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lovit-proyecto-master/lovit-proyecto-version1/proyecto-lovit/proyecto-lovit.iml" filepath="$PROJECT_DIR$/lovit-proyecto-master/lovit-proyecto-version1/proyecto-lovit/proyecto-lovit.iml" />
     </modules>
   </component>
 </project>

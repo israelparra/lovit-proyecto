@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Productos</title>
+    <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+            rel="stylesheet" />
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <img src="assets\logoNegro.png" alt="logo" class="logo">
+    <div class="search__container">
+        <input class="search__input" type="text" placeholder="Buscar...">
+    </div>
+    <div class="container-fluid">
+        <div class="menu" id="s">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active text-secondary" aria-current="page" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/productos">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="#">Sobre Lovit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="#">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-secondary" href="/admin/productos/nuevo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administración
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item text-secondary" href="/admin/productos/nuevo">Agregar Producto</a></li>
+                        <li><a class="dropdown-item text-secondary" href="/admin">Eliminar Producto</a></li>
+                        <li><a class="dropdown-item text-secondary" href="/admin">Actualizar Producto</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<hr/>
+<script
+        src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script
+        src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<div class="container">
+    <div layout:fragment="content">
+        <h4>Todos los productos Z-A</h4>
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                Destacado
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><button class="dropdown-item" type="button"><a href="/aZ">Alfabéticamente: A-Z</a></button></li>
+                <li><button class="dropdown-item" type="button"><a href="/zA">Alfabéticamente: Z-A</a></button></li>
+                <li><button class="dropdown-item" type="button"><a href="/productos">Precio: mayor a menor</a></button></li>
+                <li><button class="dropdown-item" type="button"><a href="/menorMayor">Precio: menor a mayor</a></button></li>
+            </ul>
+        </div>
+
+        <hr/>
+        <div class="row">
+            <div class="row">
+                <div class="col-md-3 my-5" th:each="producto : ${zA}"
+                     th:object="${producto}">
+                    <a th:href="@{/productos/{id}(id=*{id})}" class="card shadow-lg"
+                       style="text-decoration: none;"> <img
+                            th:src="@{/assets/{filename}(filename=*{imagenRuta})}"
+                            th:alt="*{nombre}" class="card-img-top">
+                        <div class="card-body">
+                            <h2 class="card-title fs-6 text-secondary" th:text="*{nombre}"></h2>
+                            <br>
+                            <p class="text-secondary" th:text="*{descripcion}"></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row mt-5" th:with="page=${productos}">
+                <div class="col-sm-6">
+                    <div sd:pagination-sumary></div>
+                    <div class="col-sm-6">
+                        <nav>
+                            <ul class="pagination" sd:pagination="full"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
