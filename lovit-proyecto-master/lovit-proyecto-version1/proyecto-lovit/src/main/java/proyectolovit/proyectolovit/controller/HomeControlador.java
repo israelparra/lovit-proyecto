@@ -7,9 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import proyectolovit.proyectolovit.model.Producto;
 import proyectolovit.proyectolovit.repositories.ProductoRepositorio;
@@ -36,6 +34,12 @@ public class HomeControlador {
                 .addObject("productos", productos);
     }
 
+    @PostMapping("/productos")
+    public ModelAndView listarProductosBuscados(String busqueda){
+        List<Producto> productos = productoRepositorio.findByNombreContaining(busqueda);
+        return new ModelAndView("productos")
+                .addObject("productos", productos);
+    }
     @GetMapping("/productos/{id}")
     public ModelAndView mostrarDetallesDeProducto(@PathVariable Integer id) {
         Producto producto = productoRepositorio.getOne(id);
