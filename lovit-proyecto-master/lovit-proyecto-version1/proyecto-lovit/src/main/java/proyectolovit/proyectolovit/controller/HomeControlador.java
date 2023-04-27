@@ -10,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import proyectolovit.proyectolovit.model.Producto;
+import proyectolovit.proyectolovit.model.Tag;
 import proyectolovit.proyectolovit.repositories.ProductoRepositorio;
+import proyectolovit.proyectolovit.repositories.TagRepositorio;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 @Controller
 @RequestMapping("")
@@ -19,6 +23,9 @@ public class HomeControlador {
 
     @Autowired
     private ProductoRepositorio productoRepositorio;
+
+    @Autowired
+    private TagRepositorio tagRepositorio;
 
     @GetMapping("")
     public ModelAndView verPaginaDeInicio() {
@@ -37,6 +44,14 @@ public class HomeControlador {
     @PostMapping("/productos")
     public ModelAndView listarProductosBuscados(String busqueda){
         List<Producto> productos = productoRepositorio.findByNombreContaining(busqueda);
+        List<Tag> tagsBuscados= tagRepositorio.findByNombreContaining(busqueda);
+        if(!tagsBuscados.isEmpty()){
+            for (Tag tag:tagsBuscados) {
+                productos.addAll(productoRepositorio.findByTags(tag));
+            }
+
+        }
+
         return new ModelAndView("productos")
                 .addObject("productos", productos);
     }
@@ -47,15 +62,15 @@ public class HomeControlador {
     }
 
     @GetMapping("/menorMayor")
-    public ModelAndView ordenMenorMayor() {
+    public ModelAndView ordenMenorMayor(@ModelAttribute("productos")List<Producto>productos) {
         List<Producto> menorMayor = productoRepositorio.findAll(PageRequest.of(0, 4, Sort.by("precio").ascending())).toList();
         return new ModelAndView("menorMayor")
-                .addObject("menorMayor", menorMayor);
+                .addObject("menorMayor", productos);
     }
 
     @GetMapping("/aZ")
     public ModelAndView ordenAz() {
-            List<Producto> aZ = productoRepositorio.findAll(PageRequest.of(0, 4, Sort.by("nombre").ascending())).toList();
+        List<Producto> aZ = productoRepositorio.findAll(PageRequest.of(0, 4, Sort.by("nombre").ascending())).toList();
         return new ModelAndView("aZ")
                 .addObject("aZ", aZ);
     }
@@ -67,5 +82,15 @@ public class HomeControlador {
                 .addObject("zA", zA);
     }
 
+    @GetMapping("/productos/tags/{tag}")
+    public ModelAndView obtenerProductos(@PathVariable("tag" ) String tagNombre){
+        List<Tag> tags = tagRepositorio.findByNombreContaining(tagNombre);
+        List<Producto> productos=null;
+        if(!tags.isEmpty()){
+            productos = productoRepositorio.findByTags(tags.get(0));
+        }
+        return new ModelAndView("productos")
+                .addObject("productos", productos);
+    }
 
 }

@@ -100,15 +100,15 @@
   <hr/>
   <h3 class="medio">¡Detalles que encantan!</h3>
   <div class="botones">
-    <a href="#">
+    <a href="productos/tags/cumpleaños">
       <img src="assets/cumpleaños.png" class="imgbtn">
     </a>
 
-    <a href="#">
+    <a href="productos/tags/comunion">
       <img src="assets/comunion.png" class="imgbtn">
     </a>
 
-    <a href="#">
+    <a href="productos/tags/baby">
       <img src="assets/babyshower.png" class="imgbtn">
     </a>
   </div>
@@ -118,7 +118,7 @@
 
   <div class="row">
     <div class="col-md-3 my-5" th:each="producto : ${ultimosProductos}" th:object="${producto}">
-      <a th:href="@{/productos/{id}(id=*{id})}" class="card shadow-lg" style=""text-decoration:none;>
+      <a th:href="@{/productos/{id}(id=*{id})}" class="card shadow-lg" style="text-decoration:none;">
         <img th:src="@{/assets/{filename}(filename=*{imagenRuta})}" th:alt="*{nombre}" class="card-img-top">
         <div class="card-body">
           <h2 class="card-title fs-6 text-secondary " th:text="*{nombre}"></h2>

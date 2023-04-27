@@ -36,7 +36,7 @@ public class AdminControlador {
     private AlmacenServicio servicio;
 
     @GetMapping("")
-   public ModelAndView verPaginaDeInicio(@PageableDefault(sort = "nombre", size = 5) Pageable pageable) {
+   public ModelAndView verPaginaDeInicio(@PageableDefault(sort = "nombre") Pageable pageable) {
         Page<Producto> productos = productoRepositorio.findAll(pageable);
        return new ModelAndView("admin/index").addObject("productos", productos);
     }
