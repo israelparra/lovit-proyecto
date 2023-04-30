@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>[[${producto.nombre}]]</title>
+    <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+            rel="stylesheet" />
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <img src="assets\logoNegro.png" alt="logo" class="logo">
+    <div class="search__container">
+        <form action="" method="POST" th:object="${busqueda}">
+            <input class="search__input" id="busqueda" name="busqueda" type="text" placeholder="Buscar..."/>
+            <input type="submit" hidden/>
+        </form>
+    </div>
+    <div class="container-fluid">
+        <div class="menu" id="s">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active text-secondary" aria-current="page" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/productos">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="#">Sobre Lovit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="#">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-secondary" href="/admin/productos/nuevo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administración
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item text-secondary" href="/admin/productos/nuevo">Agregar Producto</a></li>
+                        <li><a class="dropdown-item text-secondary" href="/admin">Eliminar Producto</a></li>
+                        <li><a class="dropdown-item text-secondary" href="/admin">Actualizar Producto</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<hr/>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script
+        src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<div class="container">
+    <div layout:fragment="content" th:object="${producto}">
+        <div class="row">
+            <div class="col-md-6">
+                <img th:src="@{/assets/{filename}(filename=*{imagenRuta})}"
+                     th:alt="*{nombre}" class="img-fluid rounded w-100">
+            </div>
+            <div class="col-md-6">
+                <h2 th:text="*{nombre}"></h2>
+                <span class="badge rounded-pull bg-light text-dark me-1"
+                      th:each="tag : *{tags}" th:text="${tag.nombre}"></span>
+                <p th:text="*{descripcion}"></p>
+                <hr/>
+                <div class="atributos">
+                    <p class="titulo"><b>Precio</b></p>
+                    <p th:text = "'$ ' + *{precio}"></p>
+
+                <div class="atributos">
+                    <p class="titulo"><b>Minimo de venta por piezas</b></p>
+                    <p th:text="*{minimoCompra} + ' pza'"></p>
+                </div>
+
+                <div class="atributos">
+                    <p class="titulo"><b>Alto</b></p>
+                    <p th:text="*{alto} + ' cm'"></p>
+                </div>
+
+                <div class="atributos">
+                    <p class="titulo"><b>Ancho</b></p>
+                    <p th:text="*{ancho} + ' cm'"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
