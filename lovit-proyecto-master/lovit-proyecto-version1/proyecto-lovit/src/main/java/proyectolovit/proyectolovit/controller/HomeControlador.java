@@ -62,10 +62,10 @@ public class HomeControlador {
     }
 
     @GetMapping("/menorMayor")
-    public ModelAndView ordenMenorMayor(@ModelAttribute("productos")List<Producto>productos) {
+    public ModelAndView ordenMenorMayor() {
         List<Producto> menorMayor = productoRepositorio.findAll(PageRequest.of(0, 4, Sort.by("precio").ascending())).toList();
         return new ModelAndView("menorMayor")
-                .addObject("menorMayor", productos);
+                .addObject("menorMayor", menorMayor);
     }
 
     @GetMapping("/aZ")
