@@ -1,5 +1,6 @@
 package proyectolovit.proyectolovit.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 @Controller
 @RequestMapping("")
+@RequiredArgsConstructor
 public class HomeControlador {
 
     @Autowired
@@ -26,6 +28,8 @@ public class HomeControlador {
 
     @Autowired
     private TagRepositorio tagRepositorio;
+
+    List<Producto> productos;
 
     @GetMapping("")
     public ModelAndView verPaginaDeInicio() {
@@ -36,6 +40,7 @@ public class HomeControlador {
 
     @GetMapping("/productos")
     public ModelAndView listarProductos(@PageableDefault(sort = "precio", direction = Sort.Direction.DESC) Pageable pageable) {
+        this.productos=null;
         Page<Producto> productos = productoRepositorio.findAll(pageable);
         return new ModelAndView("productos")
                 .addObject("productos", productos);
@@ -51,7 +56,7 @@ public class HomeControlador {
             }
 
         }
-
+        this.productos=productos;
         return new ModelAndView("productos")
                 .addObject("productos", productos);
     }
@@ -63,21 +68,60 @@ public class HomeControlador {
 
     @GetMapping("/menorMayor")
     public ModelAndView ordenMenorMayor() {
-        List<Producto> menorMayor = productoRepositorio.findAll(PageRequest.of(0, 4, Sort.by("precio").ascending())).toList();
+        if(this.productos!=null){
+            Collections.sort(productos, (d1, d2) -> {
+                return Float.compare(d1.getPrecio(),d2.getPrecio());
+            });
+
+            return new ModelAndView("productos")
+                    .addObject("productos", productos);
+        }
+        List<Producto> menorMayor = productoRepositorio.findAll(Sort.by("precio").descending());
         return new ModelAndView("menorMayor")
                 .addObject("menorMayor", menorMayor);
     }
 
+    @GetMapping("/mayorMenor")
+    public ModelAndView ordenMayorMenor(){
+        if(this.productos!=null){
+            Collections.sort(productos, (d1, d2) -> {
+                return Float.compare(d2.getPrecio(),d1.getPrecio());
+            });
+
+            return new ModelAndView("productos")
+                    .addObject("productos", productos);
+        }
+        List<Producto> productos = productoRepositorio.findAll(Sort.by("precio").ascending());
+        return new ModelAndView("productos")
+                .addObject("productos", productos);
+    }
+
     @GetMapping("/aZ")
     public ModelAndView ordenAz() {
-        List<Producto> aZ = productoRepositorio.findAll(PageRequest.of(0, 4, Sort.by("nombre").ascending())).toList();
+        if(this.productos!=null){
+            Collections.sort(productos, (d1, d2) -> {
+                return d2.getNombre().compareTo(d1.getNombre());
+            });
+            return new ModelAndView("productos")
+                    .addObject("productos", productos);
+        }
+
+        List<Producto> aZ = productoRepositorio.findAll(Sort.by("nombre").ascending());
         return new ModelAndView("aZ")
                 .addObject("aZ", aZ);
     }
 
     @GetMapping("/zA")
     public ModelAndView ordenZa() {
-        List<Producto> zA = productoRepositorio.findAll(PageRequest.of(0, 4, Sort.by("nombre").descending())).toList();
+
+        if(this.productos!=null){
+            Collections.sort(productos, (d1, d2) -> {
+                return d1.getNombre().compareTo(d2.getNombre());
+            });
+            return new ModelAndView("productos")
+                    .addObject("productos", productos);
+        }
+        List<Producto> zA = productoRepositorio.findAll(Sort.by("nombre").descending());
         return new ModelAndView("zA")
                 .addObject("zA", zA);
     }
