@@ -37,7 +37,7 @@ public class AdminControlador {
 
     @GetMapping("")
    public ModelAndView verPaginaDeInicio(@PageableDefault(sort = "nombre") Pageable pageable) {
-        Page<Producto> productos = productoRepositorio.findAll(pageable);
+        List<Producto> productos = productoRepositorio.findAll();
        return new ModelAndView("admin/index").addObject("productos", productos);
     }
 
@@ -47,6 +47,20 @@ public class AdminControlador {
         return new ModelAndView("admin/nuevo-producto")
                 .addObject("producto",new Producto())
                 .addObject("tags",tags);
+    }
+
+    @PostMapping("/productos")
+    public ModelAndView listarProductosBuscados(String busqueda){
+        List<Producto> productos = productoRepositorio.findByNombreContaining(busqueda);
+        List<Tag> tagsBuscados= tagRepositorio.findByNombreContaining(busqueda);
+        if(!tagsBuscados.isEmpty()){
+            for (Tag tag:tagsBuscados) {
+                productos.addAll(productoRepositorio.findByTags(tag));
+            }
+
+        }
+        return new ModelAndView("/admin/index")
+                .addObject("productos", productos);
     }
 
     @PostMapping("/productos/nuevo")

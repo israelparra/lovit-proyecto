@@ -24,7 +24,10 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <img src="assets\logoNegro.png" alt="logo" class="logo">
   <div class="search__container">
-    <input class="search__input" type="text" placeholder="Buscar...">
+    <form action="/admin/productos" method="POST" th:object="${busqueda}">
+      <input class="search__input" id="busqueda" name="busqueda" type="text" placeholder="Buscar..."/>
+      <input type="submit" hidden/>
+    </form>
   </div>
   <div class="container-fluid">
     <div class="menu" id="s">
